@@ -1,0 +1,139 @@
+# ==============================================================================
+# .gitignore for Java / Spring Boot Microservices with Multi-IDE Support
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Build and Compilation Artifacts (Maven / Java)
+# ------------------------------------------------------------------------------
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.flattened-pom.xml
+
+# JVM crash dumps and debug files
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# Execution and application logs
+*.log
+logs/
+
+# ------------------------------------------------------------------------------
+# 2. Integrated Development Environments (Multi-IDE Support)
+# ------------------------------------------------------------------------------
+
+# --- Visual Studio Code ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+.ionide/
+
+# --- IntelliJ IDEA / JetBrains ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+cmake-build-*/
+*.sublime-project
+*.sublime-workspace
+
+# Optional team shared code styles in IntelliJ
+!.idea/codeStyles/
+!.idea/vcs.xml
+!.idea/copyright/
+
+# --- Eclipse ---
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.project
+.settings/
+.loadpath
+.factorypath
+
+# --- NetBeans ---
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# ------------------------------------------------------------------------------
+# 3. Embedded / Local Databases and Testing Tools
+# ------------------------------------------------------------------------------
+# H2 Database files (in case of file-based disk mode)
+*.mv.db
+*.trace.db
+
+# JaCoCo execution data and reports
+*.exec
+*.ec
+
+# ------------------------------------------------------------------------------
+# 4. Operating System Files
+# ------------------------------------------------------------------------------
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ------------------------------------------------------------------------------
+# 5. Environment Variables and Local Secrets
+# ------------------------------------------------------------------------------
+.env
+.env.local
+*.secret
+*.pem
+*.key

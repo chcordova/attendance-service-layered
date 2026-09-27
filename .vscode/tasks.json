@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Maven Build",
+      "type": "shell",
+      "command": "mvn clean compile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$maven"]
+    },
+    {
+      "label": "Maven Test & Coverage",
+      "type": "shell",
+      "command": "mvn clean verify",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": ["$maven"]
+    },
+    {
+      "label": "Spotless Format Apply",
+      "type": "shell",
+      "command": "mvn spotless:apply",
+      "group": "build",
+      "problemMatcher": ["$maven"]
+    },
+    {
+      "label": "Spotless Check",
+      "type": "shell",
+      "command": "mvn spotless:check",
+      "group": "test",
+      "problemMatcher": ["$maven"]
+    },
+    {
+      "label": "Run Spring Boot App",
+      "type": "shell",
+      "command": "mvn spring-boot:run",
+      "problemMatcher": ["$maven"]
+    }
+  ]
+}
