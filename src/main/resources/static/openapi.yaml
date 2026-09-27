@@ -3,8 +3,8 @@ info:
   title: Attendance Service API
   version: 1.0.0
   description: >
-    Production-grade RESTful API for Employee Attendance Management built with Spring Boot 3.3.4,
-    Java 21, and Traditional Layered Architecture (Arquitectura en Capas).
+    RESTful API for Employee Attendance Management built with Spring Boot 3.3.4,
+    Java 21, and Traditional Layered Architecture.
   contact:
     name: Backend Engineering Team
     email: backend-support@company.com
