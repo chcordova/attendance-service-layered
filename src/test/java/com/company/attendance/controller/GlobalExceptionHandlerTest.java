@@ -26,6 +26,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 class GlobalExceptionHandlerTest {
 
@@ -237,5 +238,41 @@ class GlobalExceptionHandlerTest {
         assertThat(response.getBody().status()).isEqualTo(500);
         assertThat(response.getBody().message())
                 .isEqualTo("An unexpected internal error occurred. Please contact system support.");
+    }
+
+    @Test
+    @DisplayName(
+            "Should handle MethodArgumentTypeMismatchException for employeeId returning 400 with"
+                    + " INVALID_ATTENDANCE_DATA")
+    void shouldHandleMethodArgumentTypeMismatchExceptionForEmployeeId() {
+        MethodArgumentTypeMismatchException ex = mock(MethodArgumentTypeMismatchException.class);
+        when(ex.getName()).thenReturn("employeeId");
+        when(ex.getValue()).thenReturn("abc");
+
+        ResponseEntity<ErrorResponseDto> response =
+                exceptionHandler.handleMethodArgumentTypeMismatchException(ex, request);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().code()).isEqualTo("INVALID_ATTENDANCE_DATA");
+        assertThat(response.getBody().message()).isEqualTo("Invalid attendance data.");
+    }
+
+    @Test
+    @DisplayName(
+            "Should handle MethodArgumentTypeMismatchException for query params returning 400 with"
+                    + " INVALID_REQUEST")
+    void shouldHandleMethodArgumentTypeMismatchExceptionForPaginationParams() {
+        MethodArgumentTypeMismatchException ex = mock(MethodArgumentTypeMismatchException.class);
+        when(ex.getName()).thenReturn("page");
+        when(ex.getValue()).thenReturn("invalid");
+
+        ResponseEntity<ErrorResponseDto> response =
+                exceptionHandler.handleMethodArgumentTypeMismatchException(ex, request);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().code()).isEqualTo("INVALID_REQUEST");
+        assertThat(response.getBody().message()).isEqualTo("Invalid parameter value for 'page'.");
     }
 }

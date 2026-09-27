@@ -136,11 +136,12 @@ paths:
         - name: size
           in: query
           required: false
-          description: The size of the page to be returned (size > 0)
+          description: The size of the page to be returned (1 <= size <= 100)
           schema:
             type: integer
             default: 10
             minimum: 1
+            maximum: 100
           example: 10
       responses:
         "200":

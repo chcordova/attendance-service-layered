@@ -19,6 +19,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
  * Global REST exception handler mapping application exceptions to standardized ErrorResponseDto
@@ -181,6 +182,32 @@ public class GlobalExceptionHandler {
                         HttpStatus.BAD_REQUEST.getReasonPhrase(),
                         "INVALID_REQUEST",
                         ex.getMessage(),
+                        request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponseDto> handleMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
+        log.warn(
+                "Parameter type mismatch on {}: parameter '{}', value '{}'",
+                request.getRequestURI(),
+                ex.getName(),
+                ex.getValue());
+        String code =
+                "employeeId".equals(ex.getName())
+                        ? "INVALID_ATTENDANCE_DATA"
+                        : "INVALID_REQUEST";
+        String message =
+                "employeeId".equals(ex.getName())
+                        ? "Invalid attendance data."
+                        : String.format("Invalid parameter value for '%s'.", ex.getName());
+        ErrorResponseDto errorResponse =
+                new ErrorResponseDto(
+                        HttpStatus.BAD_REQUEST.value(),
+                        HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                        code,
+                        message,
                         request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }

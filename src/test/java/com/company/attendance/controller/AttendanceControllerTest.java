@@ -251,4 +251,28 @@ class AttendanceControllerTest {
                 .andExpect(jsonPath("$.code").value("INVALID_REQUEST"))
                 .andExpect(jsonPath("$.message").value("Page size must be greater than zero."));
     }
+
+    @Test
+    @DisplayName(
+            "GET /api/v1/attendances/employee/{employeeId} - Should return 400 Bad Request with"
+                    + " INVALID_ATTENDANCE_DATA when employeeId is not numeric")
+    void shouldReturn400WhenEmployeeIdIsNotNumeric() throws Exception {
+        mockMvc.perform(get("/api/v1/attendances/employee/abc"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.code").value("INVALID_ATTENDANCE_DATA"))
+                .andExpect(jsonPath("$.message").value("Invalid attendance data."));
+    }
+
+    @Test
+    @DisplayName(
+            "GET /api/v1/attendances/employee/{employeeId} - Should return 400 Bad Request with"
+                    + " INVALID_REQUEST when page or size is not numeric")
+    void shouldReturn400WhenPaginationParamIsNotNumeric() throws Exception {
+        mockMvc.perform(get("/api/v1/attendances/employee/101?page=invalid"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.code").value("INVALID_REQUEST"))
+                .andExpect(jsonPath("$.message").value("Invalid parameter value for 'page'."));
+    }
 }
